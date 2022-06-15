@@ -1,0 +1,41 @@
+.stations {
+  margin-top: 15px;
+  padding-top: 5px;
+  background: linear-gradient( #ffffff, #eeeeee);
+}
+
+.stationsList {
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  padding-inline-start: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-left: 10px;
+  padding-bottom: none;
+}
+
+.genresList {
+  flex-wrap: nowrap;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  margin-left: 70px;
+  padding-right: 15px;
+}
+
+.countriesList {
+  width: 70px;
+  /* height: 100vh;
+  overflow-y: scroll; */
+}
+
+.myBest {
+  position: relative;
+}
+
+.stationsCountriesBlock {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
