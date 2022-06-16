@@ -16,16 +16,36 @@ import { useState, useEffect } from 'react/cjs/react.development';
 export default function Home() {
   const [radioStations, setRadioStations] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [filter, setFilter] = useState({
+    country: undefined,
+    genre: undefined,
+    name: ''
+  })
+
+  const filterByCountry = (country) => (event) => {
+    setFilter({
+      ...filter,
+      country: filter.country === country ? undefined : country
+    })
+  }
   
+  const filterByGenre = (genre) => (event) => {
+    setFilter({
+      ...filter,
+      genre: filter.genre === genre ? undefined : genre
+    })
+  }
+
   useEffect(() => {
     setLoading(true)
-    getStations()
+    fetch("api/stations")
+      .then(res => res.json())
+    // getStations()
       .then((data) => {
-        setRadioStations(data)
+        setRadioStations(data.stations)
         setLoading(false)
       })
   }, [])
-  
   
   return (
     <Layout home>
@@ -45,14 +65,25 @@ export default function Home() {
             }} />
           </ul>
           <ul className={`${utilStyles.stationsList} ${utilStyles.genresList}`}>
-            {genres.map((genre) => <StationCard name={genre} key={genre} />)}
+            {genres.map((genre) => <StationCard onClick={filterByGenre(genre)} name={genre} key={genre} />)}
           </ul>
           <div className={`${utilStyles.stationsCountriesBlock}`}>
             <ul className={`${utilStyles.stationsList} ${utilStyles.countriesList}`}>
-              {countries.map((country) => <StationCard name={country} key={country} />)}
+              {countries.map((country) => <StationCard onClick={filterByCountry(country)} name={country} key={country} />)}
             </ul>
             <ul className={`${utilStyles.stationsList}`}>
-              {radioStations.map((station) => <StationCard {...station}  key={station.id} />)}
+              {radioStations.filter(station => {
+                if (filter.country && filter.genre) {
+                  return ((station.country === filter.country) &&
+                          (station.genre === filter.genre))
+                } else if (filter.country && !filter.genre) {
+                  return ((station.country === filter.country))
+                } else if (!filter.country && filter.genre) {
+                  return ((station.genre === filter.genre))
+                } else {
+                  return station
+                }
+              }).map((station) => <StationCard {...station}  key={station.id} />)}
             </ul>
           </div>
         </section>

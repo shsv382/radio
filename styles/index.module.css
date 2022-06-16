@@ -19,9 +19,11 @@
 .genresList {
   flex-wrap: nowrap;
   overflow: scroll;
+  box-sizing: content-box;
   scroll-behavior: smooth;
   margin-left: 70px;
   padding-right: 15px;
+  padding-bottom: none;
 }
 
 .countriesList {
