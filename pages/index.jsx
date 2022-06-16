@@ -4,6 +4,7 @@ import utilStyles from '../styles/index.module.css';
 import StationCard from '../components/station-card/station-card.component';
 import { countries, genres, getStations } from '../lib/stations';
 import { useState, useEffect } from 'react/cjs/react.development';
+import SearchField from '../components/search-field/search-field.component';
 
 // export async function getStaticProps() {  
 //   return {
@@ -36,6 +37,13 @@ export default function Home() {
     })
   }
 
+  const setSearchField = (event) => {
+    setFilter({
+      ...filter,
+      name: event.target.value
+    })
+  }
+
   useEffect(() => {
     setLoading(true)
     fetch("api/stations")
@@ -48,10 +56,13 @@ export default function Home() {
   }, [])
   
   return (
-    <Layout home>
+      <>
       <Head>
         <title>Choose your station</title>
       </Head>
+      <header className={utilStyles.header}>
+            <SearchField onChange={setSearchField} />
+      </header>
       {
         isLoading ? 
         <h1>Loading...</h1> : 
@@ -75,19 +86,22 @@ export default function Home() {
               {radioStations.filter(station => {
                 if (filter.country && filter.genre) {
                   return ((station.country === filter.country) &&
-                          (station.genre === filter.genre))
+                          (station.genre === filter.genre) &&
+                          station.name.includes(filter.name))
                 } else if (filter.country && !filter.genre) {
-                  return ((station.country === filter.country))
+                  return ((station.country === filter.country) &&
+                  station.name.includes(filter.name))
                 } else if (!filter.country && filter.genre) {
-                  return ((station.genre === filter.genre))
+                  return ((station.genre === filter.genre) &&
+                  station.name.includes(filter.name))
                 } else {
-                  return station
+                  return station.name.includes(filter.name)
                 }
               }).map((station) => <StationCard {...station}  key={station.id} />)}
             </ul>
           </div>
         </section>
       }
-    </Layout>
+    </>
   );
 }
