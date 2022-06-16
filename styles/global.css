@@ -38,4 +38,7 @@ img {
 
 ul {
   padding-inline-start: none !important;
+  padding: 0;
+  margin-block-start: none !important;
+  margin-block-end: none !important;
 }

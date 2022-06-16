@@ -10,6 +10,22 @@
   align-items: center;
 }
 
+@keyframes swimming {
+  0% { 
+      transform: translateX(100%); 
+  }
+  100% { 
+      transform: translateX(-30%);
+  }
+}
+
+.playingNow {
+  height: 10px;
+  line-height: 10px;
+  font-size: 8px;
+  animation: swimming 15s infinite linear;
+}
+
 .stations {
   margin-top: 15px;
   padding-top: 5px;
@@ -35,7 +51,7 @@
   scroll-behavior: smooth;
   margin-left: 70px;
   padding-right: 15px;
-  padding-bottom: none;
+  margin-bottom: none;
 }
 
 .countriesList {

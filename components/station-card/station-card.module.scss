@@ -26,5 +26,16 @@
         position: absolute;
         top: 0; left: 0;
         border: none;
+        z-index: 9990;
     }
+    span {
+        top: -35px;
+        z-index: 9995;
+    }
+}
+
+.actionFilter {
+    background-color: rgb(199, 124, 13);
+    box-shadow: 0 2px 3px 1px rgba(199, 124, 13, 0.2);
+    color: white;
 }
